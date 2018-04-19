@@ -14,8 +14,11 @@ class CreateCarServicesTable extends Migration
     public function up()
     {
         Schema::create('car_services', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->integer('car_id')->unsigned();
+            $table->integer('service_id')->unsigned();
+
+            $table->foreign('car_id')->references('id')->on('cars');
+            $table->foreign('service_id')->references('id')->on('services');
         });
     }
 

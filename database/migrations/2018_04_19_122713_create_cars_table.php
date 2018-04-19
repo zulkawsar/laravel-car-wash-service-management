@@ -15,12 +15,12 @@ class CreateCarsTable extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('car_manager_id');
+            $table->unsignedInteger('manager_id');
             $table->string('name');
-            $table->string('car_number');
+            $table->string('car_number')->unique();
             $table->timestamps();
 
-            $table->foreign('car_manager_id')->references('id')->on('users');
+            $table->foreign('manager_id')->references('id')->on('users');
         });
     }
 

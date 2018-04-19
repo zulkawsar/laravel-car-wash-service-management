@@ -16,11 +16,11 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('car_number');
+            $table->unsignedInteger('car_id');
             $table->string('status')->default(Report::UNAVAILABLE);
             $table->timestamps();
 
-            $table->foreign('car_number')->references('car_number')->on('cars');
+            $table->foreign('car_id')->references('id')->on('cars');
         });
     }
 

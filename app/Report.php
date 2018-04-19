@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     const AVAILABLE = true;
-    const UNAVILABLE = false;
+    const UNAVAILABLE = false;
 
     public function isAvailable()
     {
