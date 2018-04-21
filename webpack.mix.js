@@ -49,5 +49,5 @@ mix.scripts([
 
 
 
-
+mix.browserSync('http://localhost:8000');
 

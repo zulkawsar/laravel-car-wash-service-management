@@ -1,5 +1,5 @@
-@extends('layout.default');
-@section('title', 'Register');
+@extends('layout.default')
+@section('title', 'Register')
 @section('content')
 
 <div id="main-wrapper">

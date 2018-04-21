@@ -12,11 +12,12 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request->session()->get('key'));
         return view('register');
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      *
@@ -35,13 +36,22 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all()); 
         $rules = [
-
+            'name' => 'required'
         ];
+        $this->validate($request, $rules);
 
         $user = User::create($request->all());
-        return back();
+        
+        if (!$user->save()) {
+
+            $request->flashExcept('password');
+            return redirect('register')->withInput(
+                $request->except('password')
+            );
+        }
+        return redirect('login');
+        
     }
 
     /**
