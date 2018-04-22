@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\User;
 
 class AdminRole
 {
@@ -15,7 +16,7 @@ class AdminRole
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->role_id != 1) {
+        if (!auth()->user()->isAdmin()) {
             return redirect()->route('login');
         }
         return $next($request);

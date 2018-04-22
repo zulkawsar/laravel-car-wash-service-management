@@ -14,6 +14,7 @@ class RegisterController extends Controller
      */
     public function index(Request $request)
     {
+        
         // dd($request->session()->get('key'));
         return view('register');
     }

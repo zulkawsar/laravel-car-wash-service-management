@@ -9,9 +9,10 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'users';
 
-    const MANAGER = 2;
-    // const MANAGER = 'manager';
+    const MANAGER = '2';
+    const ADMIN = '1';
 
 
     /**
@@ -35,6 +36,11 @@ class User extends Authenticatable
     public function isManager()
     {
         return $this->role_id == User::MANAGER;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role_id == User::ADMIN;
     }
 
     public function getRole()

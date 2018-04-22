@@ -23,3 +23,8 @@ Route::group(['middleware' => 'guest'], function(){
 	Route::post('/register/store', 'RegisterController@store')->name('register.store');
 
 });
+
+
+Route::group(['middleware' => 'auth'], function(){
+	Route::get('/logout', 'LoginController@logout')->name('logout');
+});
