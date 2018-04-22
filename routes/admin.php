@@ -10,5 +10,7 @@
 | contains the "admin" middleware group. Now create something great!
 |
 */
+Route::group(['middleware' => ['auth', 'admin']], function(){
 
-// Route::get('/admin', 'AuthController@index');
+	Route::get('/admin', 'Admin\AdminDashboardController@index')->name('index');
+});

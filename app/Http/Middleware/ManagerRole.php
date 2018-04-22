@@ -15,7 +15,7 @@ class ManagerRole
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->role_id != 2) {
+        if (auth()->user()->role_id != 2) {
             return redirect()->route('login');
         }
         return $next($request);

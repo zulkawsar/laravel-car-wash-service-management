@@ -37,18 +37,21 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'name' => 'required'
+            'name' => 'required',
+            'email' => 'required | email | unique:users,email',
+            'password' => 'required | min:4 | confirmed'
         ];
         $this->validate($request, $rules);
 
-        $user = User::create($request->all());
+        $user = User::create([
+
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
         
         if (!$user->save()) {
-
-            $request->flashExcept('password');
-            return redirect('register')->withInput(
-                $request->except('password')
-            );
+            return back();
         }
         return redirect('login');
         

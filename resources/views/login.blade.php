@@ -11,22 +11,35 @@
                         <div class="login-content card">
                             <div class="login-form">
                                 <h4>Login</h4>
-                                <form>
-                                    <div class="form-group">
+                                <form method="POST" action="{{ route('login.store') }}">
+                                    {{ csrf_field() }}
+                                    <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                                         <label>Email address</label>
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="email" name="email" class="form-control" placeholder="Email">
+                                        
+                                        @if ($errors->has('email'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif 
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        
+                                        @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                     <div class="checkbox">
                                         <label>
-        										<input type="checkbox"> Remember Me
-        									</label>
+        									<input type="checkbox"> Remember Me
+        								</label>
                                         <label class="pull-right">
-        										<a href="#">Forgotten Password?</a>
-        									</label>
+        									<a href="#">Forgotten Password?</a>
+        								</label>
 
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
@@ -41,4 +54,6 @@
             </div>
         </div>
 
-    </div>
+</div>
+
+@endsection

@@ -15,7 +15,7 @@ class AdminRole
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->role_id != 1) {
+        if (auth()->user()->role_id != 1) {
             return redirect()->route('login');
         }
         return $next($request);

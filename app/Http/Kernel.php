@@ -74,9 +74,9 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\AdminRole::class,
-        'manager' => \App\Http\Middleware\ManagerRole::class,
+        'managerrole' => \App\Http\Middleware\ManagerRole::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
     ];
 }

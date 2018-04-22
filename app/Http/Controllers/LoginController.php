@@ -13,9 +13,9 @@ class LoginController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->is('login')) {
+        // if ($request->is('login')) {
             return view('login');
-        }
+        // }
     }
 
     /**
@@ -36,7 +36,27 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $rules = [
+            'email' => 'required | email | exists:users,email',
+            'password' => 'required'
+        ];
+        $this->validate($request, $rules);
+        
+        $auth = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];        
+        if (auth()->attempt($auth)) {
+            if (auth()->user()->role_id == 1) {
+                return redirect()->route('index');
+            }
+            else{
+                return redirect()->route('login');
+            }
+        }else{
+            return back()->with('status', 'You Need to verify your account');
+        }  
     }
 
     /**
