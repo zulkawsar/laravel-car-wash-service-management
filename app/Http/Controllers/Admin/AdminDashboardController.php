@@ -14,9 +14,6 @@ class AdminDashboardController extends Controller
      */
     public function index()
     {
-        if (\Auth::check()) {
-            dd(\Auth::user());
-        }
         return view('index');
     }
 
