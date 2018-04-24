@@ -44,7 +44,20 @@ class LoginController extends Controller
             'password' => 'required'
         ];
         $this->validate($request, $rules);
-        
+
+
+        $sessionValue = $request->session()->get('key');
+
+        if ($sessionValue >= 3) {
+            session()->flush();
+            return back();
+        }else{
+            $sessionValue = $sessionValue + 1;
+            $request->session()->put('key', $sessionValue);
+        }
+
+
+
         $auth = [
             'email' => $request->email,
             'password' => $request->password
