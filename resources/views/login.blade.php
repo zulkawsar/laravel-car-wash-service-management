@@ -11,6 +11,11 @@
                         <div class="login-content card">
                             <div class="login-form">
                                 <h4>Login</h4>
+                                @if (session('msg'))
+                                    <div class="alert alert-success">
+                                        {{ session('msg') }}
+                                    </div>
+                                @endif
                                 <form method="POST" action="{{ route('login.store') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">

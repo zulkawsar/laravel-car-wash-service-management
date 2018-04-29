@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Carbon\Carbon;
 
 
 class LoginController extends Controller
@@ -38,46 +39,57 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+
         $rules = [
             'email' => 'required | email | exists:users,email',
             'password' => 'required'
         ];
         $this->validate($request, $rules);
 
-
-        $sessionValue = $request->session()->get('key');
-
-        if ($sessionValue >= 3) {
-            session()->flush();
-            return back();
-        }else{
-            $sessionValue = $sessionValue + 1;
-            $request->session()->put('key', $sessionValue);
-        }
-
-
-
         $auth = [
             'email' => $request->email,
             'password' => $request->password
-        ];        
-        if (auth()->attempt($auth)) {
-            if (auth()->user()->isAdmin()) {
-                return redirect()->route('index');
+        ]; 
+
+        $sessionValue = $request->session()->get('key');
+        $sessionTime  = $request->session()->get('time');
+
+        if ($sessionTime == null) {
+            $request->session()->put('time', Carbon::now());
+        }
+
+        if ($sessionValue >= 2) {
+            $timeDiff = Carbon::parse($sessionTime)->diffInSeconds();
+            if ($timeDiff >= 59) {
+
+                if (auth()->attempt($auth)) {
+                    if (auth()->user()->isAdmin()) {
+                        return redirect()->route('index');
+                    }
+                    elseif (auth()->user()->isManager()) {
+                        $request->session()->flush();
+                        dd("Under Contraction");
+                        // return redirect()->route('index');
+                    }
+                    else{
+                        session()->flush();
+                        return redirect()->route('login');
+                    }
+                }else{
+                    session()->flush();
+                    return back()->with('msg', 'You Need to ----');
+                }
+
             }
-            elseif (auth()->user()->isManager()) {
-                $request->session()->flush();
-                dd("Under Contraction");
-                // return redirect()->route('index');
-            }
-            else{
-                $request->session()->flush();
-                return redirect()->route('login');
-            }
+            $waitTime = 59 - $timeDiff;
+            return back()->with('msg', 'you have to wait ' . $waitTime . ' sec');
+
         }else{
-            return back()->with('status', 'You Need to verify your account');
-        }  
+            $sessionValue = $sessionValue + 1;
+            $request->session()->put('key', $sessionValue);
+            return back()->with('msg', 'you have to verify account ');
+
+        } 
     }
 
     /**
