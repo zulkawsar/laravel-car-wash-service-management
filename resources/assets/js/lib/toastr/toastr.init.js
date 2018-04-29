@@ -4,8 +4,11 @@
 // 1. All Success Message
 //...................................................
 
-$('#toastr-success-top-right').on("click", function() {
-    toastr.success('This Is Success Message','Top Right',{
+// $('#toastr-success-top-right').on("click", function() {
+function alertMessage(){
+    // var msg = "<?php echo $msg; ?>";
+    // alert(msg);
+    toastr.error( msg, title,{
         timeOut: 5000,
         "closeButton": true,
         "debug": false,
@@ -24,8 +27,10 @@ $('#toastr-success-top-right').on("click", function() {
         "tapToDismiss": false
 
     })
-});
+}
+// });
 
+window.addEventListener('load', alertMessage);
 
 $('#toastr-success-bottom-right').on("click", function() {
     toastr.success('This Is Success Message','Bottom Right',{

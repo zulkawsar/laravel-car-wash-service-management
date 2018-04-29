@@ -20,6 +20,7 @@ mix.styles([
     'resources/assets/css/lib/calendar2/pignose.calendar.min.css',
     'resources/assets/css/lib/owl.carousel.min.css',
     'resources/assets/css/lib/owl.theme.default.min.css',
+    'resources/assets/css/lib/toastr/toastr.min.css',
     'resources/assets/css/helper.css',
     'resources/assets/css/style.css',
 ],  'public/css/all.css');
@@ -42,6 +43,8 @@ mix.scripts([
     'resources/assets/js/lib/calendar-2/pignose.init.js',
     'resources/assets/js/lib/owl-carousel/owl.carousel.min.js',
     'resources/assets/js/lib/owl-carousel/owl.carousel-init.js',
+    'resources/assets/js/lib/toastr/toastr.min.js',
+    'resources/assets/js/lib/toastr/toastr.init.js',
     'resources/assets/js/scripts.js',
     'resources/assets/js/custom.min.js',
 ], 'public/js/all.js');

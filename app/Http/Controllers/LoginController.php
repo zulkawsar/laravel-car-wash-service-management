@@ -54,12 +54,11 @@ class LoginController extends Controller
         $sessionValue = $request->session()->get('key');
         $sessionTime  = $request->session()->get('time');
 
-        if ($sessionTime == null) {
-            $request->session()->put('time', Carbon::now());
-        }
-
         if ($sessionValue >= 2) {
-            $timeDiff = Carbon::parse($sessionTime)->diffInSeconds();
+            if ($sessionTime == null) {
+                $request->session()->put('time', Carbon::now());    //put the current time to session
+            }
+            $timeDiff = Carbon::parse($sessionTime)->diffInSeconds(); //calculate time
             if ($timeDiff >= 59) {
 
                 if (auth()->attempt($auth)) {
@@ -77,17 +76,21 @@ class LoginController extends Controller
                     }
                 }else{
                     session()->flush();
-                    return back()->with('msg', 'You Need to ----');
-                }
+                    return back()->with('msg', 'you have to verify account')
+                        ->with('title', 'Login Error');
+                } // end auth() attempt 
 
             }
             $waitTime = 59 - $timeDiff;
-            return back()->with('msg', 'you have to wait ' . $waitTime . ' sec');
+            return back()->with('msg', 'you have to wait ' . $waitTime . ' sec')
+                        ->with('title', 'Login Error');
 
         }else{
             $sessionValue = $sessionValue + 1;
             $request->session()->put('key', $sessionValue);
-            return back()->with('msg', 'you have to verify account ');
+            return back()->with('msg', 'you have to verify account ')
+                        ->with('title', 'Login Error');
+            
 
         } 
     }

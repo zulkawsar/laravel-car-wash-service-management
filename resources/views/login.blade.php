@@ -12,10 +12,12 @@
                             <div class="login-form">
                                 <h4>Login</h4>
                                 @if (session('msg'))
-                                    <div class="alert alert-success">
-                                        {{ session('msg') }}
-                                    </div>
+                                    <script type="text/javascript">
+                                        var title = "<?php echo session('title'); ?>";
+                                        var msg = "<?php echo session('msg'); ?>";
+                                    </script>
                                 @endif
+
                                 <form method="POST" action="{{ route('login.store') }}">
                                     {{ csrf_field() }}
                                     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
