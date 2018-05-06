@@ -51,6 +51,8 @@ class LoginController extends Controller
             'password' => $request->password
         ]; 
 
+        $remember = $request->remember;
+        // dd($remember);
         $sessionValue = $request->session()->get('key');
         $sessionTime  = $request->session()->get('time');
 
@@ -61,7 +63,7 @@ class LoginController extends Controller
             $timeDiff = Carbon::parse($sessionTime)->diffInSeconds(); //calculate time
             if ($timeDiff >= 59) {
 
-                if (auth()->attempt($auth)) {
+                if (auth()->attempt($auth, $remember)) {
                     if (auth()->user()->isAdmin()) {
                         return redirect()->route('index');
                     }

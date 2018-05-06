@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-        									<input type="checkbox"> Remember Me
+        									<input type="checkbox" id="remember" checked="checked" name="remember"> Remember Me
         								</label>
                                         <label class="pull-right">
         									<a href="#">Forgotten Password?</a>

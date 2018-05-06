@@ -1,5 +1,5 @@
 @extends('layout.default')
-
+@section('title', 'Dashboard')
 @section('content')
     <!-- Main wrapper  -->
     <div id="main-wrapper">
